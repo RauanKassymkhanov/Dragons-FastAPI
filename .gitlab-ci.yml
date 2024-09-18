@@ -1,0 +1,40 @@
+default:
+  image: python:latest
+
+
+services:
+  - postgres:14
+variables:
+  POSTGRES_DB: dragons_test
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: 5432
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  CI: "true"
+
+
+before_script:
+  - pip install --upgrade pip
+  - pip install poetry
+  - poetry install
+
+
+stages:
+  - lint-and-test
+
+
+cache:
+  paths:
+    - .cache/pypoetry
+
+
+linter-job:
+  stage: lint-and-test
+  script:
+    - poetry run ruff check .
+
+
+test-job:
+  stage: lint-and-test
+  script:
+    - poetry run pytest -v
