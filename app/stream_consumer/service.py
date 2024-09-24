@@ -1,16 +1,11 @@
 from uuid import uuid4
-from fastapi import Depends
 from sqlalchemy import insert
-from sqlalchemy.ext.asyncio import AsyncSession
-from app.consumer.schemas import EventCreate
-from app.database import get_db_session
+from app.base_service import BaseService
+from app.stream_consumer.schemas import EventCreate
 from app.models.events import EventModel
 
 
-class EventService:
-    def __init__(self, session: AsyncSession = Depends(get_db_session)):
-        self._session = session
-
+class EventService(BaseService):
     async def create_event(self, new_event: EventCreate) -> EventModel:
         new_event_id = str(uuid4())
 

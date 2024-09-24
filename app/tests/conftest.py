@@ -3,7 +3,6 @@ import pathlib
 from asyncio import DefaultEventLoopPolicy
 from contextlib import asynccontextmanager
 from typing import AsyncIterable, Callable
-
 import boto3
 import pytest
 from alembic.command import downgrade, upgrade
@@ -14,7 +13,6 @@ from sqlalchemy.orm import sessionmaker
 from app.config import get_settings
 from app.database import get_alembic_config, get_db_session
 from moto import mock_aws
-
 from app.tests.factory_schemas import SqsRecordModelFactory
 
 TEST_HOST = "http://test"
@@ -37,6 +35,9 @@ def pytest_configure(config: pytest.Config):
     os.environ["QUEUE_NAME"] = "-"
     os.environ["AWS_ACCESS_KEY"] = "-"
     os.environ["AWS_SECRET_KEY"] = "-"
+    os.environ["TRIGGER_SQS_QUEUE_URL"] = "-"
+    os.environ["TRIGGER_QUEUE_NAME"] = "-"
+    os.environ["S3_BUCKET_NAME"] = "-"
 
 
 def override_app_test_dependencies(app: FastAPI) -> None:

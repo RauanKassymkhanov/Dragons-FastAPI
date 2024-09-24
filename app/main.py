@@ -3,7 +3,8 @@ from contextlib import asynccontextmanager
 from alembic import command
 from fastapi import FastAPI
 from app.config import get_settings
-from app.consumer.consumer import consume_sqs_messages
+from app.daily_reporter.consumer import consume_daily_report_trigger
+from app.stream_consumer.consumer import consume_stream_messages
 from app.database import get_alembic_config
 
 
@@ -25,4 +26,5 @@ app = create_app()
 
 
 def startup_event() -> None:
-    asyncio.create_task(consume_sqs_messages())
+    asyncio.create_task(consume_stream_messages())
+    asyncio.create_task(consume_daily_report_trigger())

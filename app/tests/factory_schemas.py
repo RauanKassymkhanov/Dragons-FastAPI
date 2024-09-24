@@ -4,6 +4,7 @@ from aws_lambda_powertools.utilities.parser.models.dynamodb import (
     DynamoDBStreamRecordModel,
 )
 from aws_lambda_powertools.utilities.parser.models.sqs import SqsRecordModel, SqsAttributesModel
+from app.daily_reporter.schemas import DailyReportModel
 
 
 class DynamoDBStreamChangedRecordFactory(ModelFactory[DynamoDBStreamChangedRecordModel]):
@@ -44,3 +45,7 @@ class SqsRecordModelFactory(ModelFactory[SqsRecordModel]):
     @classmethod
     def body(cls) -> DynamoDBStreamRecordModel:
         return DynamoDBStreamRecordFactory.build()
+
+
+class DailyReportModelFactory(ModelFactory[DailyReportModel]):
+    __model__ = DailyReportModel
