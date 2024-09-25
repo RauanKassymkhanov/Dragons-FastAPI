@@ -1,5 +1,4 @@
 from functools import lru_cache
-
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -10,6 +9,9 @@ class Settings(BaseSettings):
     QUEUE_NAME: str
     AWS_ACCESS_KEY: str
     AWS_SECRET_KEY: str
+    TRIGGER_SQS_QUEUE_URL: str
+    TRIGGER_QUEUE_NAME: str
+    S3_BUCKET_NAME: str
 
     model_config = SettingsConfigDict(env_file=".env")
 
